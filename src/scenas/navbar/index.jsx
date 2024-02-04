@@ -8,7 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Bienvenida from "../home/index";
 import UserAdd from "../usuarios/index";
 import Demeritos from "../demerito/index";
-
+import StudentAdd from "../estudiantes/index";
 
 
 
@@ -18,6 +18,7 @@ const Navbar = () => {
     const [showBienvenida, setShowBienvenida] = useState(true);
     const [showUserAdd, setShowUserAdd] = useState(false);
     const [showDemerito, setShowDemerito] = useState(false);
+    const [showStudentAdd, setShowStudentAdd] = useState(false);
 
 
     const allSideMenu = document.querySelectorAll('#sidebar .sidebar-menu.top li a');
@@ -46,13 +47,14 @@ const Navbar = () => {
         setShowBienvenida(true);
         setShowUserAdd(false);
         setShowDemerito(false);
-
+        setShowStudentAdd(false);
     }
     //funcion para Usuarios
     const handerUserClick = () => {
         setShowBienvenida(false);
         setShowUserAdd(true);
         setShowDemerito(false);
+        setShowStudentAdd(false);
 
     }
     //funcion para demeritos
@@ -60,8 +62,15 @@ const Navbar = () => {
         setShowBienvenida(false);
         setShowUserAdd(false);
         setShowDemerito(true);
+        setShowStudentAdd(false);
     }
 
+    const handerStudentClick = () => {
+        setShowBienvenida(false);
+        setShowUserAdd(false);
+        setShowDemerito(false);
+        setShowStudentAdd(true);
+    }
 
     return (
         <div><section id="sidebar">
@@ -89,7 +98,7 @@ const Navbar = () => {
 
 
                 <li>
-                    <a href="#cargarestudiantes" >
+                    <a href="#cargarestudiantes" onClick={handerStudentClick}>
                         <i className="bx bxs-dashboard" ></i>
                         <span className="text">Cargar Estudiantes</span>
                     </a>
@@ -193,6 +202,7 @@ const Navbar = () => {
             {showBienvenida && <Bienvenida />}
             {showUserAdd && <UserAdd />}
             {showDemerito && <Demeritos />}
+            {showStudentAdd && <StudentAdd />}
             
         </main>
     </section>
