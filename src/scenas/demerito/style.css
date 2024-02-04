@@ -1,0 +1,81 @@
+.dataTable {
+    height: 60%;
+    width: 95%;
+    border-radius: 100%;
+    margin: 30px;
+}
+
+.dataGrid {
+    background: white;
+    padding: 20px;
+    border-radius: 100%;
+}
+
+.MuiDataGrid-toolbarContainer {
+    flex-direction: row-reverse;
+}
+
+img{
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.action {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+.action img{
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.confirmation-dialog {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    background-color: rga(0, 0, 0, 0.724);
+    top: 0;
+    left: -200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.confirmation-dialog-1 {
+    width: 500px;
+    height: 250px;
+    border-radius: 12px;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    display: flex;
+    top: 0;
+    left: 0;
+    flex-direction: column;
+    padding: 50px;
+}
+
+.footer button {
+    width: 150px;
+    height: 45px;
+    margin: 10px;
+    border: none;
+    background-color: cornflowerblue;
+    color: white;
+    border-radius: 8px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+#cancelBtn {
+background-color: crimson;
+}
+
+#generateExcelBtn {
+background-color: green;
+}
+
