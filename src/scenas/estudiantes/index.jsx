@@ -22,6 +22,10 @@ const StudentAdd = () => {
                             setModalOpen(true);
                         }}
                     >Agregar Estudiante</button>
+                    <br />
+                    <button className='btn'>
+                        Carga masiva
+                    </button>
                 </div>
                     <EstudianteTab slug="students"/>
                     {modalOpen && <AddStudent setOpenModal={setModalOpen} />}
