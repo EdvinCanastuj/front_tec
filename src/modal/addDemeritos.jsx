@@ -1,8 +1,12 @@
 import { useEffect, useState } from "react";
 import "./style.css";
 import { useUserId } from "../scenas/login/UserIdContext";
+import Autocomplete from '@mui/lab/Autocomplete';
+import TextField from '@mui/material/TextField';
+
 const AddDemerito = ({ setOpenModal }) => {
     const { userId } = useUserId();
+    const [ id_grado, setGradoId ] = useState('');
 
     const [userData, setUserData] = useState({
         id_usuario: userId,
@@ -10,13 +14,17 @@ const AddDemerito = ({ setOpenModal }) => {
         id_estudiante: '',
         curso: '',
         cantidad: '',
+        comentario: '',
     });
     const [usuario, setUsuario] = useState([]);
     const [razon, setRazon] = useState([]);
     const [estudiante, setEstudiante] = useState([]);
+    const [grado, setGrado] = useState([]);
+
 
     const [isRazonSelectOpen, setIsRazonSelectOpen] = useState(false);
     const [isEstudianteSelectOpen, setIsEstudianteSelectOpen] = useState(false);
+    const [isGradoSelectOpen, setIsGradoSelectOpen] = useState(false);
 
     useEffect(() => {
         fetch('http://localhost:4000/usuario/'+userId)
@@ -26,21 +34,26 @@ const AddDemerito = ({ setOpenModal }) => {
                 })
             .catch(err => console.log('Error al obtener las razones', err));
             
-
+        fetch('http://localhost:4000/grado/')
+            .then(res => res.json())
+            .then(data => {
+                setGrado(data);
+            })
+            .catch(err => console.log('Error al obtener los grados', err));
+            
         fetch('http://localhost:4000/razon')
             .then(res => res.json())
             .then(data => {
                 setRazon(data);
             })
             .catch(err => console.log('Error al obtener las razones', err));
-        fetch('http://localhost:4000/estudiante')
+        fetch('http://localhost:4000/estudiante/'+id_grado)
             .then(res => res.json())
             .then(data => {
                 setEstudiante(data);
             })
             .catch(err => console.log('Error al obtener los estudiantes', err));
-    }, []);
-
+    }, [id_grado, userId]);
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setUserData({
@@ -53,6 +66,12 @@ const AddDemerito = ({ setOpenModal }) => {
     };
     const handleSelectCloseRazon = () => {
         setIsRazonSelectOpen(false);
+    };
+    const handleSelectOpenGrado = () => {
+        setIsGradoSelectOpen(true);
+    };
+    const handleSelectCloseGrado = () => {
+        setIsGradoSelectOpen(false);
     };
     const handleSelectOpenEstudiante = () => {
         setIsEstudianteSelectOpen(true);
@@ -79,6 +98,7 @@ const AddDemerito = ({ setOpenModal }) => {
                     id_razon: '',
                     curso: '',
                     cantidad: '',
+                    comentario: '',
                     
                 });
                 setOpenModal(false);
@@ -89,68 +109,100 @@ const AddDemerito = ({ setOpenModal }) => {
             console.log('Error de conexion', err);
         }
     }
+    console.log(id_grado)
     return (
         <div className="modalBackground">
             <div className="modalContainer">
-                <div className="titleCloseBtn">
-                    <button
-                        onClick={() => {
-                            setOpenModal(false);
-                        }}
-                    >
-                        X
-                    </button>
+            <div className="form-row">
+    <div className="form-group col-12 col-md-3"/>
+    <div className="form-group col-12 col-md-9 d-flex justify-content-between align-items-center">
+        <div className="title">
+            <h4>Ingresar Demerito</h4>
+        </div>
+        <div className="titleCloseBtn">
+            <button
+                onClick={() => {
+                    setOpenModal(false);
+                }}
+            >
+                X
+            </button>
+        </div>
+    </div>
                 </div>
-                <div className="title">
-                    <h3>Ingresar Demerito</h3>
-                </div>
-                <script>
-                </script>
                 <form onSubmit={handleSubmit}>
-                    <div className="form-group">
-                        <label for="exampleFormControlSelect1">Profesor </label>
+                    <div >
+                        <label for="exampleFormControlSelect1">Profesor: </label>
                         <input
                             type="text"
-                            class="form-control"
+                            className="form-labele"
                             id="id_usuario"
                             name="id_usuario"
                             value={usuario.map(usuario => usuario.nombre + " " + usuario.apellido)}
                             readOnly
                         />
                     </div>
+                    <div className="form-group ">
+                        <label for="exampleFormControlSelect1">Grado</label>
+                        <div
+                            //style={{ height: 35}}
+                            className={`select-wrapper ${isGradoSelectOpen ? 'select-open' : ''
+                                }`}
+                        >
+                            <Autocomplete
+                                options={grado}
+                                getOptionLabel={(option) => option.grado}
+                                //style={{ width: 400, padding: 2, paddingTop: 8}}
+                                onOpen={handleSelectOpenGrado}
+                                onClose={handleSelectCloseGrado}
+                                onChange={(event, newValue) => {
+                                    setGradoId(newValue ? newValue.id_grado : "");
+                                }}
+                                renderInput={(params) => <TextField {...params} label="" variant="outlined" />}
+                            />
+                        </div>
+                    </div>
                     <div className="form-group">
                         <label for="exampleFormControlSelect1">Estudiante</label>
                         <div
+                            //style={{ height: 35}}
                             className={`select-wrapper ${isEstudianteSelectOpen ? 'select-open' : ''
                                 }`}
                         >
-                            <select
-                                className="form-control"
+                            <Autocomplete
                                 id="id_estudiante"
-                                name="id_estudiante"
-                                //value={userData.tipo_rol}
-                                onClick={handleSelectOpenEstudiante}
-                                onBlur={handleSelectCloseEstudiante}
-                                onChange={handleInputChange}
-                                placeholder=""
-                            >
-                                <option value="">Elige un estudiante</option>
-                                {estudiante.map(estudiante => (
-                                    <option key={estudiante.id_estudiante} value={estudiante.id_estudiante}>
-                                        {estudiante.nombres} {estudiante.apellidos}
-                                    </option>
-                                ))}
-                            </select>
+                                options={estudiante}
+                                getOptionLabel={(option) => option.nombres + " " + option.apellidos}
+                                //style={{ width: 400, padding: 2, paddingTop: 8}}
+                                onOpen={handleSelectOpenEstudiante}
+                                onClose={handleSelectCloseEstudiante}
+                                onChange={(event, newValue) => {
+                                    handleInputChange({ target: { name: 'id_estudiante', value: newValue ? newValue.id_estudiante : "" } });
+                                }}
+                                renderInput={(params) => <TextField {...params} label="" variant="outlined" />}
+                            />
                         </div>
                     </div>
                     <div className="form-group">
                         <label for="exampleInputPassword1">Curso</label>
                         <input
                             type="text"
-                            class="form-control"
+                            className="form-control"
                             id="curso"
                             name="curso"
                             value={userData.curso}
+                            onChange={handleInputChange}
+                            placeholder=""
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label for="exampleInputPassword1">Comentario</label>
+                        <input
+                            type="text"
+                            className="form-control"
+                            id="comentario"
+                            name="comentario"
+                            value={userData.comentario}
                             onChange={handleInputChange}
                             placeholder=""
                         />

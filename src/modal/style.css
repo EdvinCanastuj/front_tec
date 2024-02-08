@@ -21,6 +21,7 @@ top: 0;
 left: 0;
 flex-direction: column;
 padding: 50px;
+overflow: auto;
 }
 
 .modalContainer .title {
@@ -71,8 +72,67 @@ border-radius: 8px;
 font-size: 20px;
 cursor: pointer;
 }
+.form-labele{
+    /* display: block; */
+    width: 300px;
+    padding: 0.375rem 0.75rem;
+    font-size: 1.25rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid white;
+    border-radius: 0.25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
 
 #cancelBtn {
 background-color: crimson;
 }
+.MuiInputBase-root {
+    height: 100%; /* Ajusta este valor a la altura que desees */
+    width: 100%;
+}
+@media (max-width: 600px) {
+    .modalBackground {
+        position: absolute;
+        z-index: 9999;
+        left: -15%;
+}
+.modalContainer .title {
+    display: inline-block;
+    text-align: center;
+    margin-top: 0px;
+    font-size: 0.4em;
+    }
+    .modalContainer {
+        width: 80%; /* Cambia a un porcentaje para ser responsivo */
+        max-width: 300px; /* Establece un ancho máximo para pantallas grandes */
+        height: 80%; /* Cambia a un porcentaje para ser responsivo */
+        max-height: 650px; /* Establece una altura máxima para pantallas grandes */
+        border-radius: 12px;
+        background-color: white;
+        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+        padding: 50px;        overflow: auto;
+      }
 
+  
+    .titleCloseBtn button {
+      font-size: 20px; /* Reduce el tamaño de la fuente en pantallas pequeñas */
+    }
+  
+    .modalContainer .body {
+      font-size: 0.9rem; /* Reduce el tamaño de la fuente en pantallas pequeñas */
+    }
+  
+    .modalContainer .footer button {
+      width: 120px; /* Reduce el ancho del botón en pantallas pequeñas */
+      height: 35px; /* Reduce la altura del botón en pantallas pequeñas */
+      font-size: 18px; /* Reduce el tamaño de la fuente en pantallas pequeñas */
+    }
+  
+    .form-labele {
+      width: 80%; /* Cambia a un porcentaje para ser responsivo */
+      font-size: 1rem; /* Reduce el tamaño de la fuente en pantallas pequeñas */
+    }
+  }
