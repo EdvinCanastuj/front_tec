@@ -1,138 +1,132 @@
 .modalBackground {
-    position: absolute;
-    width: 100vw;
-    height: 100vh;
-    background-color: rga(0, 0, 0, 0.724);
-    top: 0;
-    left: -150px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  background-color: rga(0, 0, 0, 0.724);
+  top: 0;
+  left: -150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-
 .modalContainer {
-width: 500px;
-height: 650px;
-border-radius: 12px;
-background-color: white;
-box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-display: flex;
-top: 0;
-left: 0;
-flex-direction: column;
-padding: 50px;
-overflow: auto;
+  width: 500px;
+  height: 650px;
+  border-radius: 12px;
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  display: flex;
+  top: 0;
+  left: 0;
+  flex-direction: column;
+  padding: 50px;
+  overflow: auto;
 }
-
 .modalContainer .title {
-display: inline-block;
-text-align: center;
-margin-top: 0px;
+  display: inline-block;
+  text-align: center;
+  margin-top: 0px;
 }
-
 .titleCloseBtn {
-display: flex;
-justify-content: flex-end;
-margin-top: -20px;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: -20px;
 }
-
 .titleCloseBtn button {
-background-color: transparent;
-border: none;
-font-size: 25px;
-cursor: pointer;
-height: -25px;
+  background-color: transparent;
+  border: none;
+  font-size: 25px;
+  cursor: pointer;
+  height: -25px;
 }
-
-
 .modalContainer .body {
-flex: 50%;
-display: flex;
-justify-content: center;
-align-items: center;
-font-size: 1rem;
-text-align: center;
+  flex: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+  text-align: center;
 }
-
 .modalContainer .footer {
-flex: 20%;
-display: flex;
-justify-content: center;
-align-items: center;
+  flex: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-
 .modalContainer .footer button {
-width: 150px;
-height: 45px;
-margin: 10px;
-border: none;
-background-color: cornflowerblue;
-color: white;
-border-radius: 8px;
-font-size: 20px;
-cursor: pointer;
+  width: 150px;
+  height: 45px;
+  margin: 10px;
+  border: none;
+  background-color: cornflowerblue;
+  color: white;
+  border-radius: 8px;
+  font-size: 20px;
+  cursor: pointer;
 }
-.form-labele{
-    /* display: block; */
-    width: 300px;
-    padding: 0.375rem 0.75rem;
-    font-size: 1.25rem;
-    line-height: 1.5;
-    color: #495057;
-    background-color: #fff;
-    background-clip: padding-box;
-    border: 1px solid white;
-    border-radius: 0.25rem;
-    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+.form-labele {
+  width: 300px;
+  padding: 0.375rem 0.75rem;
+  font-size: 1.25rem;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid white;
+  border-radius: 0.25rem;
+  transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 }
-
 #cancelBtn {
-background-color: crimson;
+  background-color: crimson;
 }
 .MuiInputBase-root {
-    height: 100%; /* Ajusta este valor a la altura que desees */
-    width: 100%;
+  height: 100%;
+  /* Ajusta este valor a la altura que desees */
+  width: 100%;
 }
 @media (max-width: 600px) {
-    .modalBackground {
-        position: absolute;
-        z-index: 9999;
-        left: -15%;
-}
-.modalContainer .title {
+  .modalBackground {
+    z-index: 9999;
+    left: -15%;
+  }
+  .MuiAutocomplete-popper {
+    z-index: 10000 !important;
+  }
+  .modalContainer .title {
     display: inline-block;
     text-align: center;
     margin-top: 0px;
     font-size: 0.4em;
-    }
-    .modalContainer {
-        width: 80%; /* Cambia a un porcentaje para ser responsivo */
-        max-width: 300px; /* Establece un ancho máximo para pantallas grandes */
-        height: 80%; /* Cambia a un porcentaje para ser responsivo */
-        max-height: 650px; /* Establece una altura máxima para pantallas grandes */
-        border-radius: 12px;
-        background-color: white;
-        box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-        padding: 50px;        overflow: auto;
-      }
-
-  
-    .titleCloseBtn button {
-      font-size: 20px; /* Reduce el tamaño de la fuente en pantallas pequeñas */
-    }
-  
-    .modalContainer .body {
-      font-size: 0.9rem; /* Reduce el tamaño de la fuente en pantallas pequeñas */
-    }
-  
-    .modalContainer .footer button {
-      width: 120px; /* Reduce el ancho del botón en pantallas pequeñas */
-      height: 35px; /* Reduce la altura del botón en pantallas pequeñas */
-      font-size: 18px; /* Reduce el tamaño de la fuente en pantallas pequeñas */
-    }
-  
-    .form-labele {
-      width: 80%; /* Cambia a un porcentaje para ser responsivo */
-      font-size: 1rem; /* Reduce el tamaño de la fuente en pantallas pequeñas */
-    }
   }
+  .MuiInputBase-input {
+    height: 4px !important;
+    border-color: black !important;
+}
+  .modalContainer {
+    width: 80%;
+    height: 80%;
+    border-radius: 12px;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    padding: 50px;
+    overflow: auto;
+  }
+
+  .modalContainer .footer button {
+    width: 120px;
+    height: 35px;
+    font-size: 18px;
+  }
+  .form-labele {
+    width: 100%;
+    font-size: 1rem;
+    font-family: "Roboto","Helvetica","Arial",sans-serif;
+    color: black;
+  }
+  .form-labeles {
+    width: 100%;
+    font-size: 1rem;
+    font-family: "Roboto","Helvetica","Arial",sans-serif;
+    color: black;
+  }
+}

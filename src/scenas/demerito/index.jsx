@@ -20,7 +20,7 @@ const Demeritos = () => {
                     <h1>Demeritos</h1>
                     <button
                         className="btnAdd"
-                        para abrir el modal
+                        
                         onClick={() => {
                             setModalOpen(true);
                         }}

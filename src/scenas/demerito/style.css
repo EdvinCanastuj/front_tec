@@ -70,6 +70,10 @@ img{
     font-size: 20px;
     cursor: pointer;
 }
+.btnAdd {
+    display: block; /* Hace que el botón sea un bloque y ocupe toda la línea */
+    margin-top: 20px; /* Añade un margen en la parte superior para separarlo del título */
+}
 
 #cancelBtn {
 background-color: crimson;
@@ -78,4 +82,34 @@ background-color: crimson;
 #generateExcelBtn {
 background-color: green;
 }
+@media (max-width: 667px) {
+    .dataTable {
+        width: 100%;
+        margin: 15px;
+    }
 
+    .confirmation-dialog-1 {
+        width: 90%;
+        height: auto;
+        padding: 20px;
+    }
+
+    .footer button {
+        width: 100px;
+        height: 35px;
+        font-size: 16px;
+    }
+
+    .action img {
+        width: 15px;
+        height: 15px;
+    }
+    .btnAdd {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin-top: 100px;
+
+    }
+}

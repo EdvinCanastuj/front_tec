@@ -152,7 +152,6 @@ const AddDemerito = ({ setOpenModal }) => {
                             <Autocomplete
                                 options={grado}
                                 getOptionLabel={(option) => option.grado}
-                                //style={{ width: 400, padding: 2, paddingTop: 8}}
                                 onOpen={handleSelectOpenGrado}
                                 onClose={handleSelectCloseGrado}
                                 onChange={(event, newValue) => {
@@ -173,7 +172,6 @@ const AddDemerito = ({ setOpenModal }) => {
                                 id="id_estudiante"
                                 options={estudiante}
                                 getOptionLabel={(option) => option.nombres + " " + option.apellidos}
-                                //style={{ width: 400, padding: 2, paddingTop: 8}}
                                 onOpen={handleSelectOpenEstudiante}
                                 onClose={handleSelectCloseEstudiante}
                                 onChange={(event, newValue) => {
@@ -187,7 +185,7 @@ const AddDemerito = ({ setOpenModal }) => {
                         <label for="exampleInputPassword1">Curso</label>
                         <input
                             type="text"
-                            className="form-control"
+                            className="form-control form-labeles"
                             id="curso"
                             name="curso"
                             value={userData.curso}
@@ -209,32 +207,27 @@ const AddDemerito = ({ setOpenModal }) => {
                     </div>
                     <div class="form-row">
                         <div class="form-row">
-                            <div className="form-group col-md-6">
+                            <div className="form-group col-md-10">
                                 <label for="exampleFormControlSelect1">Razon </label>
                                 <div
                                     className={`select-wrapper ${isRazonSelectOpen ? 'select-open' : ''
                                         }`}
                                 >
-                                    <select
-                                        className="form-control"
-                                        id="id_razon"
-                                        name="id_razon"
-                                        value={userData.id_razon}
-                                        onClick={handleSelectOpenRazon}
-                                        onBlur={handleSelectCloseRazon}
-                                        onChange={handleInputChange}
-                                        placeholder=""
-                                    >
-                                        <option value="">Elige una Razon </option>
-                                        {razon.map(razon => (
-                                            <option key={razon.id_razon} value={razon.id_razon}>
-                                                {razon.tipo_razon}
-                                            </option>
-                                        ))}
-                                    </select>
+                            <Autocomplete
+                                id="id_razon"
+                                options={razon}
+                                getOptionLabel={(option) => option.tipo_razon}
+                                onOpen={handleSelectOpenRazon}
+                                onClose={handleSelectCloseRazon}
+                                onChange={(event, newValue) => {
+                                    handleInputChange({ target: { name: 'id_razon', value: newValue ? newValue.id_razon : "" } });
+                                }}
+                                renderInput={(params) => <TextField {...params} label="" variant="outlined" />}
+                            />
                                 </div>
                             </div>
-                            <div className="form-group col-md-6">
+                            <div className="form-group col-md-1"></div>
+                            <div className="form-group col-md-1">
                                 <label for="exampleInputPassword1">Cantidad</label>
                                 <input
                                     type="number"

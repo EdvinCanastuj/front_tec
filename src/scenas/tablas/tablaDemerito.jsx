@@ -6,61 +6,49 @@ const columns = [
     {
         field: 'id_demerito',
         headerName: 'ID',
-        width: 90
+        width: 10
     },
     {
-        field: 'nombre',
-        headerName: 'Nombre',
+        field: 'Profesor',
+        headerName: 'Profesor',
         width: 150,
-        editable: true,
-    },
-    {
-        field: 'apellido',
-        headerName: 'Apellido',
-        width: 110,
-        editable: true,
+        editable: false,
     },
     {
         field: 'fecha',
         headerName: 'fecha',
         width: 110,
-        editable: true,
+        editable: false,
     },
     {
         field: 'tipo_razon',
         headerName: 'Razon',
         width: 150,
-        editable: true,
+        editable: false,
     },
     {
-        field: 'nombres',
-        headerName: 'Nombre',
+        field: 'Estudiante',
+        headerName: 'Estudiante',
         width: 150,
-        editable: true,
-    },
-    {
-        field: 'apellidos',
-        headerName: 'Apellido',
-        width: 110,
-        editable: true,
+        editable: false,
     },
     {
         field: 'grado',
         headerName: 'Grado',
         width: 110,
-        editable: true,
+        editable: false,
     },
     {
         field: 'curso',
         headerName: 'Curso',
         width: 110,
-        editable: true,
+        editable: false,
     },
     {
         field: 'cantidad',
         headerName: 'Cantidad',
-        width: 110,
-        editable: true,
+        width: 80,
+        editable: false,
     },
     {
         field: "actions",
@@ -84,6 +72,7 @@ const DemeritoTable = () => {
     const [data, setData] = useState([]);
     const [isDialogOpen, setDialogOpen] = useState(false);
     const [intervalCount, setIntervalCount] = useState(0);
+    const [selectedDemeritoId, setSelectedDemeritoId] = useState(null);
 
     const updateData = async () => {
         try{
@@ -126,8 +115,32 @@ const DemeritoTable = () => {
     useEffect(() => {
         fetchData();
     }, []);
+    const handleDeleteClick = (demerito_id) => {
+        setSelectedDemeritoId(demerito_id);
+        setDialogOpen(true);
+    };
+    const handleCancelDelete = () => {
+        setDialogOpen(false);
+        window.history.back();
+    };
+    const handleConfirmDelete = async () => {
+        try {
+            const response = await fetch(`http://localhost:4000/demerito/${selectedDemeritoId}`, {
+                method: 'DELETE',
+            });
+            if (response.ok) {
+                setDialogOpen(false);
+                fetchData();
+            } else {
+                console.error('Error al eliminar el usuario');
+            }
 
+        }
+        catch (err) {
+            console.error('Error al eliminar el usuario: ', err);
+        }
 
+    };
 
 
 
@@ -145,7 +158,7 @@ const DemeritoTable = () => {
                                 <img src="/view.svg" alt="" />
                             </div>
                             <div className="delete">
-                                <img src="/delete.svg" alt="" />
+                                <img src="/delete.svg" alt="" onClick={() => handleDeleteClick(params.row.id_demerito)}/>
                             </div>
                         </div>
                     ),
@@ -172,6 +185,19 @@ const DemeritoTable = () => {
                     disableDensitySelector
                     disableColumnSelector
                 />
+                            {/* Cuadro de diálogo de confirmación */}
+            {isDialogOpen && (
+                <div className='confirmation-dialog'>
+                    <div className='confirmation-dialog-1'>
+                        <p>¿Está seguro de que desea eliminar este usuario?</p>
+                        <div className="footer">
+                            <button onClick={handleConfirmDelete}>Aceptar</button>
+                            <button id="cancelBtn" onClick={handleCancelDelete}>Cancelar</button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
         </div>
     );
 }
