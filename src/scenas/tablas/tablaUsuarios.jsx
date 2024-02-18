@@ -153,7 +153,6 @@ const UsuarioTab = () => {
 
     const handleViewClick = (id_usuario) => {
         const usuarios = data1.filter((item) => item.id_usuario === id_usuario);
-        console.log(usuarios);
         if (usuarios.length > 0) {
             const usuario = usuarios[0]; // Obtiene el primer usuario del array
             setEditNombreId(id_usuario);

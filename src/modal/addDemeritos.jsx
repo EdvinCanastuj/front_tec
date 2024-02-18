@@ -129,7 +129,7 @@ const AddDemerito = ({ setOpenModal }) => {
             </button>
         </div>
     </div>
-                </div>
+            </div>
                 <form onSubmit={handleSubmit}>
                     <div >
                         <label for="exampleFormControlSelect1">Profesor: </label>
@@ -240,7 +240,6 @@ const AddDemerito = ({ setOpenModal }) => {
                                     required
                                 />
                             </div>
-
                         </div>
                     </div>
                     <div className="footer">
