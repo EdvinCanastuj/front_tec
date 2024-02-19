@@ -1,7 +1,7 @@
 import "./style.css";
 import logo from "../login/logo.png";
-import { useEffect, useState } from "react";
-import { useNavigate, useHash } from "react-router-dom";
+import {  useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useUserRole } from "../login/UserRoleContext";
 import 'react-toastify/dist/ReactToastify.css';
@@ -14,18 +14,6 @@ import StudentAdd from "../estudiantes/index";
 
 
 const Navbar = () => {
-    const hash = useHash();
-    useEffect(() => {
-
-            if (hash){
-                const id = hash.substr(1);
-                const element = document.getElementById(id);
-                if (element) {
-                    element.scrollIntoView({ behavior: "smooth" });
-                }
-            }
-        }, [hash]);
-
     const { userRole } = useUserRole();
     const [showBienvenida, setShowBienvenida] = useState(true);
     const [showUserAdd, setShowUserAdd] = useState(false);
