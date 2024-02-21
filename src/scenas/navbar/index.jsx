@@ -9,8 +9,7 @@ import Bienvenida from "../home/index";
 import UserAdd from "../usuarios/index";
 import Demeritos from "../demerito/index";
 import StudentAdd from "../estudiantes/index";
-
-
+import Historial from "../historial";
 
 
 const Navbar = () => {
@@ -19,8 +18,7 @@ const Navbar = () => {
     const [showUserAdd, setShowUserAdd] = useState(false);
     const [showDemerito, setShowDemerito] = useState(false);
     const [showStudentAdd, setShowStudentAdd] = useState(false);
-
-
+    const [showReporteAdd, setShowReporte ] = useState(false);
     const allSideMenu = document.querySelectorAll('#sidebar .sidebar-menu.top li a');
     const navigate = useNavigate();
 
@@ -28,7 +26,6 @@ const Navbar = () => {
         navigate('/');
         toast.success("Seción cerrada exitosamente");
     }
-
     allSideMenu.forEach((item) => {
         const li = item.parentElement;
         item.addEventListener('click', function() {
@@ -37,7 +34,6 @@ const Navbar = () => {
             li.classList.add('active');
         });
     });
-
     const handleMenuToggle = () => {
         const sidebar = document.getElementById('sidebar');
         sidebar.classList.toggle('hide');
@@ -48,6 +44,7 @@ const Navbar = () => {
         setShowUserAdd(false);
         setShowDemerito(false);
         setShowStudentAdd(false);
+        setShowReporte(false);
     }
     //funcion para Usuarios
     const handerUserClick = () => {
@@ -55,7 +52,7 @@ const Navbar = () => {
         setShowUserAdd(true);
         setShowDemerito(false);
         setShowStudentAdd(false);
-
+        setShowReporte(false);
     }
     //funcion para demeritos
     const handerDemeritoClick = () => {
@@ -63,15 +60,22 @@ const Navbar = () => {
         setShowUserAdd(false);
         setShowDemerito(true);
         setShowStudentAdd(false);
+        setShowReporte(false);
     }
-
     const handerStudentClick = () => {
         setShowBienvenida(false);
         setShowUserAdd(false);
         setShowDemerito(false);
         setShowStudentAdd(true);
+        setShowReporte(false);
     }
-
+    const handerReporteClick = () => {
+        setShowBienvenida(false);
+        setShowUserAdd(false);
+        setShowDemerito(false);
+        setShowStudentAdd(false);
+        setShowReporte(true);
+    }
     return (
         <div><section id="sidebar">
         <a href className="brand" style={{cursor: "pointer"}} onClick={handerBienvenidaClick}>
@@ -88,38 +92,30 @@ const Navbar = () => {
                     </a>
                     
                 </li>
-            
                 <li>
                     <a  href="#rdemeritos" onClick={handerDemeritoClick}>
                         <i className="bx bxs-user"></i>
                         <span className="text">Registrar Deméritos</span>
                     </a>
                 </li>
-
-
                 <li>
                     <a href="#cargarestudiantes" onClick={handerStudentClick}>
                         <i className="bx bxs-dashboard" ></i>
                         <span className="text">Cargar Estudiantes</span>
                     </a>
                 </li>
-
-
-
                 <li>
                     <a href="#hmeritos" >
                         <i className='bx bxs-folder'></i>
                         <span className="text">Historial de Meritos</span>
                     </a>
                 </li>
-
                 <li>
-                    <a href="#hdemeritos" >
+                    <a href="#hdemeritos" onClick={handerReporteClick} >
                         <i className='bx bxs-spreadsheet'></i>
                         <span className="text">Historial de Deméritos</span>
                     </a>
                 </li>
-
                 <li>
                     <a href="#usuarios" onClick={handerUserClick}>
                         <i className='bx bxs-report'></i>
@@ -139,7 +135,7 @@ const Navbar = () => {
                 </li>
             
                 <li>
-                    <a  href="#rdemeritos">
+                    <a  href="#rdemeritos" onClick={handerDemeritoClick}>
                         <i className="bx bxs-user"></i>
                         <span className="text">Registrar Deméritos</span>
                     </a>
@@ -152,22 +148,14 @@ const Navbar = () => {
                 </li>
 
                 <li>
-                    <a href="#hdemeritos" >
+                    <a href="#hdemeritos" onClick={handerReporteClick} >
                         <i className='bx bxs-spreadsheet'></i>
                         <span className="text">Historial de Deméritos</span>
                     </a>
                 </li>
-
-                    {/* <li>
-                        <a href="#reporte" onClick={handerReporteClick}>
-                            <i className='bx bxs-report'></i>
-                            <span className="text">Tus Reportes</span>
-                        </a>
-                    </li> */}
                 </>
             )}
         </ul>
-
         <ul className="side-menu">
             <li>
                 <a href className="logout" onClick={handleLogout}>
@@ -203,6 +191,7 @@ const Navbar = () => {
             {showUserAdd && <UserAdd />}
             {showDemerito && <Demeritos />}
             {showStudentAdd && <StudentAdd />}
+            {showReporteAdd && <Historial />}
             
         </main>
     </section>

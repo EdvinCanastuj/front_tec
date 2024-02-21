@@ -77,7 +77,9 @@ const DemeritoTable = () => {
     const [intervalCount, setIntervalCount] = useState(0);
     const [selectedDemeritoId, setSelectedDemeritoId] = useState(null);
     const [isRazonSelectOpen, setIsRazonSelectOpen] = useState(false);
+    const [isEstadoSelectOpen, setIsEstadoSelectOpen] = useState(false);
     const [razon, setRazon] = useState([]);
+    const [estado, setEstado] = useState([]);
     const [isGradoSelectOpen, setIsGradoSelectOpen] = useState(false);
     const [grado, setGrado] = useState([]);
     const [isEstudianteSelectOpen, setIsEstudianteSelectOpen] = useState(false);
@@ -94,12 +96,14 @@ const DemeritoTable = () => {
     const [editCurso, setEditCurso] = useState('');
     const [editCantidad, setEditCantidad] = useState('');
     const [editComentario, setEditComentario] = useState('');
+    const [editestado, setEditEstado] = useState('');
 
     const [edit_id_razon, setEditIdRazon] = useState('');
     const [edit_id_estudiante, setEditIdEstudiante] = useState('');
     const [edit_id_curso, setEditIdCurso] = useState('');
     const [edit_id_cantidad, setEditIdCantidad] = useState('');
     const [edit_id_comentario, setEditIdComentario] = useState('');
+    const [edit_id_estado, setEditIdEstado] = useState('');
 
 
 
@@ -173,6 +177,13 @@ const DemeritoTable = () => {
             })
             .catch(err => console.log('Error al obtener los grados', err));
 
+        fetch('http://localhost:4000/estado')
+            .then(res => res.json())
+            .then(data => {
+                setEstado(data);
+            })
+            .catch(err => console.log('Error al obtener las razones', err));
+
         fetch('http://localhost:4000/razon')
             .then(res => res.json())
             .then(data => {
@@ -200,6 +211,8 @@ const DemeritoTable = () => {
             setEditIdComentario(demerito.comentario);
             setEditIdRazon(demerito.id_razon);
             setEditIdEstudiante(demerito.id_estudiante);
+            setEditEstado(demerito.estado);
+            setEditIdEstado(demerito.id_estado);
             setAddDemeritoOpen(true);
         }
     };
@@ -242,6 +255,12 @@ const DemeritoTable = () => {
     const handleSelectCloseRazon = () => {
         setIsRazonSelectOpen(false);
     };
+    const handleSelectOpenEstado = () => {
+        setIsEstadoSelectOpen(true);
+    };
+    const handleSelectCloseEstado = () => {
+        setIsEstadoSelectOpen(false);
+    };
     const handleSelectOpenGrado = () => {
         setIsGradoSelectOpen(true);
     };
@@ -270,6 +289,7 @@ const DemeritoTable = () => {
                         curso: edit_id_curso,
                         cantidad: edit_id_cantidad,
                         comentario: edit_id_comentario,
+                        id_estado: edit_id_estado
                     }
                 ),
             });
@@ -278,7 +298,7 @@ const DemeritoTable = () => {
                 fetchData();
             } else {
                 console.error('Error al actualizar el usuario');
-                console.log(edit_id_razon, edit_id_estudiante, edit_id_curso, edit_id_cantidad, edit_id_comentario)
+                console.log(edit_id_razon, edit_id_estudiante, edit_id_curso, edit_id_cantidad, edit_id_comentario, edit_id_estado, demeritoId)
             }
         } catch (err) {
             console.error('Error al actualizar el usuario: ', err);
@@ -388,7 +408,6 @@ const DemeritoTable = () => {
                                         renderInput={(params) => <TextField {...params} label="" variant="outlined" />}
                                         // value={estudiante.find(option => option.nombres === editNombres && option.apellidos === editApellidos)}
                                         value={editNombres && editApellidos ? estudiante.find(option => option.nombres === editNombres && option.apellidos === editApellidos) : null}
-
                                     />
                                 </div>
                             </div>
@@ -456,6 +475,28 @@ const DemeritoTable = () => {
                                     }}
                                 />
                                 
+                            </div>
+                            <div className='form-group'>
+                                <label for="exampleFormControlSelect1">Estado</label>
+                                <div
+                                    //style={{ height: 35}}
+                                    className={`select-wrapper ${isEstadoSelectOpen ? 'select-open' : ''
+                                        }`}
+                                >
+                                    <Autocomplete
+                                        id="id_estado"
+                                        options={estado}
+                                        getOptionLabel={(option) => option.estado}
+                                        onOpen={handleSelectOpenEstado}
+                                        onClose={handleSelectCloseEstado}
+                                        onChange={(event, newValue) => {
+                                            setEditIdEstado(newValue ? newValue.id_estado : "");
+                                            setEditEstado(newValue ? newValue.estado : "");
+                                        }}
+                                        renderInput={(params) => <TextField {...params} label="" variant="outlined" />}
+                                        value={estado.find(option => option.estado === editestado)}
+                                    />
+                                </div>
                             </div>
                             <div className="footer">
                                 <button id="cancelBtn" onClick={handleCancelModificar}>Cancelar</button>
