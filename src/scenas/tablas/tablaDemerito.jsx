@@ -8,7 +8,7 @@ const columns = [
     {
         field: 'id_demerito',
         headerName: 'ID',
-        width: 10
+        width: 5,
     },
     {
         field: 'Profesor',

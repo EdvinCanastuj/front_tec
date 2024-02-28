@@ -5,7 +5,7 @@ const colums = [
 {
     field: 'id_historial', 
     headerName: 'ID',
-    width: 50, 
+    width: 5, 
 },
 {
     field: 'Profesor',
@@ -23,7 +23,7 @@ const colums = [
 {
     field: 'grado',
     headerName: 'Grado',
-    width: 200,
+    width: 100,
     editable: true,
 },
 {
@@ -35,13 +35,13 @@ const colums = [
 {
     field: 'comentario',
     headerName: 'Comentario',
-    width: 200,
+    width: 100,
     editable: true,
 },
 {
     field: 'Creado',
     headerName: 'Creacion',
-    width: 200,
+    width: 100,
     editable: true,
 },
 {
@@ -53,19 +53,19 @@ const colums = [
 {
     field: 'curso',
     headerName: 'Curso',
-    width: 200,
+    width: 100,
     editable: true,
 },
 {
     field: 'tipo_razon',
     headerName: 'Razon',
-    width: 200,
+    width: 150,
     editable: true,
 },
 {
     field: 'estado',
     headerName: 'Estado',
-    width: 200,
+    width: 150,
     editable: true,
 },
 ]
