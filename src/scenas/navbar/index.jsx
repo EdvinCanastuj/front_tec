@@ -3,7 +3,6 @@ import logo from "../login/logo.png";
 import {  useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { useUserRole } from "../login/UserRoleContext";
 import 'react-toastify/dist/ReactToastify.css';
 import Bienvenida from "../home/index";
 import UserAdd from "../usuarios/index";
@@ -13,7 +12,6 @@ import Historial from "../historial";
 
 
 const Navbar = () => {
-    const { userRole } = useUserRole();
     const [showBienvenida, setShowBienvenida] = useState(true);
     const [showUserAdd, setShowUserAdd] = useState(false);
     const [showDemerito, setShowDemerito] = useState(false);
@@ -83,8 +81,7 @@ const Navbar = () => {
             <span className="text">Teczion</span>
         </a>
         <ul className="side-menu top">
-        {userRole === 'admin' && (
-            <>
+        
                 <li className="active">
                     <a href="#rmeritos" >
                         <i className="bx bxs-user"></i>
@@ -122,9 +119,8 @@ const Navbar = () => {
                         <span className="text">Usuarios</span>
                     </a>
                 </li>
-            </>
-            )}
-            {userRole === 'usuario' && (
+
+            {/* {userRole === 'usuario' && (
                 <>
                     <li className="active">
                     <a href="#rmeritos" >
@@ -154,7 +150,7 @@ const Navbar = () => {
                     </a>
                 </li>
                 </>
-            )}
+            )} */}
         </ul>
         <ul className="side-menu">
             <li>

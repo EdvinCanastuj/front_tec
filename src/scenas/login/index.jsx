@@ -1,60 +1,22 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import imagenTeczion from "./logo.png";
 import "./style.css";
-import { useUserRole } from "./UserRoleContext";
-import { useUserId } from "./UserIdContext";
+import { useAuth } from "../../auth/AuthProvider";
+import { Navigate } from "react-router-dom";
 
-const Login = ({setIsLoggedIn}) => {
+const Login = () => {
     const [nombre_usuario, setNombreUsuario] = useState("");
     const [password, setPassword] = useState("");
-    const navigate = useNavigate();
-
-    const { setUserRole } = useUserRole();
-    const { setUserId } = useUserId();
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-            const response = await fetch("http://localhost:4000/usuario/login", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    nombre_usuario,
-                    contrasena: password,
-                }),
-            });
-            const data = await response.json();
-            const userId = data.id_usuario;
-            setUserId(userId);
-            if (response.status === 200) {
-                if (data.rol === 1) {
-                    setUserRole('admin');
-                    toast.success(`¡Bienvenido, ${data.nombre} ${data.apellido}! Eres un administrador`);
-                } else if (data.rol === 2) {
-                    setUserRole('usuario');
-                    toast.success(`¡Bienvenido, ${data.nombre} ${data.apellido}! Eres un usuario`);
-
-                }
-                setIsLoggedIn(true);
-                navigate("/home");
-            } else {
-                toast.error("Usuario o contraseña incorrectos");
-                setNombreUsuario('');
-                setPassword('');
-            }
-        }
-        catch (error) {
-            console.log('Error en la solicitud: ', error);
-        }
+    const auth = useAuth();
+    if (auth.isAuthenticated) {
+        return <Navigate to="/home" />;
     };
+    
     return(
         <div className="login template d-flex justify-content-center align-items-center vh-100 ">
         <div className="form_container p-5 rounded bg-white">
-            <form onSubmit={handleSubmit}>
+            <form >
                 <div className="text-center">
                     <img src={imagenTeczion} alt="Logo" className="mb-4" style={{ width: '50%', height: 'auto' }} />
                 </div>
